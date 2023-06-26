@@ -18,13 +18,13 @@ todoRouter.get("/", async (req, res) => {
 todoRouter.post("/create", async (req, res) => {
   const { taskname, status, tag } = req.body;
   const author_id = req.userID;
-  const blog = new Todomodel({
+  const todo = new Todomodel({
     taskname,
     status,
     tag,
     author_id,
   });
-  await blog.save();
+  await todo.save();
   res.status(201).send({ msg: "Todo created successfully" });
 });
 
@@ -45,8 +45,8 @@ todoRouter.put("/put/:todoID", async (req, res) => {
 todoRouter.delete("/delete/:todoID", async (req, res) => {
   const { todoID } = req.params;
   const userID = req.userID; 
-  const blog = await Todomodel.findOne({ _id: todoID });
-  const author_id = blog.author_id; 
+  const todo = await Todomodel.findOne({ _id: todoID });
+  const author_id = todo.author_id; 
 
   if (author_id === userID) {
     await Todomodel.findOneAndDelete({ _id: todoID });
