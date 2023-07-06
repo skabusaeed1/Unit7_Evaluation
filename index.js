@@ -12,6 +12,10 @@ const app = express()
 
 app.use(express.json())
 
+app.get("/", (req, res) => {
+    res.send("WElcome to Home page");
+})
+
 app.post("/signup", async (req, res) => {
     const {email, password} = req.body
     const hashed_password = bcrypt.hashSync(password, 8);
